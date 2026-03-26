@@ -1,0 +1,28 @@
+USE [A record label project];
+GO
+
+DROP DATABASE IF EXISTS CompanyBase;
+GO
+
+CREATE DATABASE CompanyBase;
+GO
+
+USE CompanyBase;
+GO
+
+DROP SCHEMA IF EXISTS Products;
+GO
+
+CREATE SCHEMA Products AUTHORIZATION dbo;
+GO
+
+DROP TABLE IF EXISTS Products.Stock;
+GO
+
+CREATE TABLE Products.Stock
+	(IDProduct INT NOT NULL,
+	ProductName NVARCHAR(30) NOT NULL,
+	ProductType NVARCHAR(15) NOT NULL,
+	Price NVARCHAR(10) NOT NULL,
+	);
+GO

@@ -1,0 +1,73 @@
+USE MASTER;
+GO
+
+DROP DATABASE IF EXISTS NowaBaza;
+GO
+
+CREATE DATABASE NowaBaza;
+GO
+
+USE NowaBaza;
+GO
+
+DROP SCHEMA IF EXISTS Products;
+GO
+
+CREATE SCHEMA Products AUTHORIZATION dbo;
+GO
+
+DROP TABLE IF EXISTS Products.Vendor;
+GO
+
+CREATE TABLE Products.Vendor
+	(VendorID int NOT NULL,
+	VendorName nvarchar(30) NOT NULL,
+	City nvarchar(15) NOT NULL,
+	);
+GO
+
+DROP SCHEMA IF EXISTS Production;
+GO
+
+CREATE SCHEMA Production AUTHORIZATION dbo;
+GO
+
+CREATE TABLE Production.Products
+	(ProdID INT NOT NULL,
+	ProdName varchar(max) NOT NULL,
+	CatID INT NOT NULL,
+	Price money NULL,
+	ProdDescription varchar(100) NULL,
+	CONSTRAINT PK_Products_ProdID PRIMARY KEY (ProdID)
+	);
+GO
+
+DROP TABLE IF EXISTS Production.Categories;
+GO
+
+CREATE TABLE Production.Categories
+	(CatID INT IDENTITY (1,1) NOT NULL,
+	CatName NVARCHAR (100) NOT NULL,
+	CatDescrtiption NVARCHAR(max),
+	CONSTRAINT PK_Categories_CatID PRIMARY KEY (CatID)
+	);
+GO
+
+INSERT INTO Production.Products VALUES (761, 'Quering SQL Server', 2, 165.00, 'SQL DML'),
+(762, 'Developing SQL', 2, 165.00, 'SQL DDL'),
+(767, 'DataWarehouse SQL', 2, 165.00, 'DW SQL');
+GO
+
+INSERT INTO Production.Categories (CatName, CatDescrtiption) VALUES 
+(N'SQL 2019 Database Administration', N'Microsoft Solutions Associate'),
+(N'SQL 2019 Database Developer', N'Miscosoft Certified Solution Expert'),
+(N'SQL Database Warehousing', N'Microsoft Solutions Associate');
+GO
+
+SELECT * FROM Production.Products;
+SELECT * FROM Production.Categories;
+
+ALTER TABLE Producion.Products WITH CHECK 
+ADD CONSTRAINT FK_Products_CatID FOREIGN KEY (CatID)
+REFERENCES Production.Categories (CatID);
+GO
